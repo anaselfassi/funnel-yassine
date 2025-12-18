@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KHALID.DIGITAL - Digital Product</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        
+        // Initialisation standard
+        fbq('init', '7590598354379639');
+        fbq('track', 'PageView'); // Tracks the initial load
+
+        // Google Tag Mock (Place real snippet in production)
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        // gtag('js', new Date());
+        // gtag('config', 'AW-XXXXXXXX');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=7590598354379639&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #F8FAFC;
+            color: #111111;
+        }
+        
+        /* Typography Highlights */
+        .highlight-red { color: #D32F2F; }
+        .bg-highlight { background-color: #FEF2F2; color: #D32F2F; }
+
+        /* Page Transitions */
+        .funnel-page {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+        .funnel-page.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background-color: #D32F2F;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px 0 rgba(211, 47, 47, 0.39);
+        }
+        .btn-primary:hover {
+            background-color: #B71C1C;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.23);
+        }
+        .btn-whatsapp {
+            background-color: #25D366;
+            transition: all 0.3s ease;
+        }
+
+        /* Elements */
+        .card-shadow { box-shadow: 0 10px 40px rgba(0,0,0,0.08); }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: #D32F2F;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        
+        /* Video Placeholder */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .play-btn {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px; height: 70px;
+            background: rgba(211,47,47,0.9);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(211, 47, 47, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+        }
+
+        /* Step Progress */
+        .step-transition { transition: width 0.5s ease-in-out; }
+        
+        /* Form Elements */
+        .custom-radio:checked + div {
+            border-color: #D32F2F;
+            background-color: #FEF2F2;
+        }
+        .custom-radio:checked + div .radio-circle {
+            background-color: #D32F2F;
+            border-color: #D32F2F;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header (Black Background) -->
+    <header class="bg-black border-b border-gray-800 py-4 sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4 flex justify-center">
+            <div class="border-2 border-white px-3 py-1">
+                <span class="text-xl font-extrabold tracking-widest text-white uppercase">
+                    KHALID<span class="text-red-700">.DIGITAL</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- ========================================== -->
+        <!-- PAGE 1: SALES PAGE (Original Content)      -->
+        <!-- ========================================== -->
+        <section id="page-index" class="funnel-page active">
+            
+            <!-- HERO SECTION -->
+            <div class="bg-white pb-12 pt-8 md:pt-12 px-4 border-b border-gray-100">
+                <div class="max-w-4xl mx-auto text-center">
+                    <span class="inline-block bg-red-50 text-red-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6">
+                        Programme sur sélection • Exécution réelle LIVE
+                    </span>
+                    <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+                        Lance un <span class="text-red-700 relative inline-block">
+                            produit digital rentable
+                            <svg class="absolute w-full h-3 -bottom-1 left-0 text-red-200 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="8" fill="none"/></svg>
+                        </span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-700 font-medium mb-8 max-w-3xl mx-auto">
+                        3 mois d'immersion + 1 mois de suivi. <br class="hidden md:block">De l'opportunité aux premières ventes.
+                    </p>
+
+                    <!-- VSL Placeholder -->
+                    <div class="max-w-3xl mx-auto mb-10">
+                        <div class="video-wrapper">
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-white p-6 text-center">
+                                <p class="text-sm font-light uppercase tracking-widest mb-2 opacity-90">Présentation de la méthode</p>
+                                <h3 class="text-2xl font-bold mb-1">DIGITAL PRODUCT</h3>
+                                <p class="opacity-75 text-sm">Avec Abderrahim KHALID</p>
+                            </div>
+                            <div class="play-btn">
+                                <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bullet Points (Hero) -->
+                    <div class="flex flex-wrap justify-center gap-4 text-sm font-medium text-gray-700 max-w-4xl mx-auto mb-10">
+                        <div class="flex items-center bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Trouver une niche rentable
+                        </div>
+                        <div class="flex items-center bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Offre qui se vend (High-Ticket)
+                        </div>
+                        <div class="flex items-center bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Checkout + Paiement solide
+                        </div>
+                        <div class="flex items-center bg-gray-50 px-4 py-2 rounded-lg border border-gray-100">
+                            <svg class="w-5 h-5 text-green-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Publicité & Emailing
+                        </div>
+                    </div>
+
+                    <button onclick="router.navigateTo('page-step1')" class="btn-primary text-white font-bold text-lg md:text-xl px-10 py-4 rounded-lg shadow-lg animate-bounce-slow">
+                        Rejoindre le programme
+                    </button>
+                    <p class="text-xs text-gray-400 mt-3">Places limitées pour cette session</p>
+                </div>
+            </div>
+
+            <!-- THE PROBLEM / INTRO -->
+            <div class="py-16 px-4 bg-gray-50">
+                <div class="max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">
+                        Tout le monde parle de "digital product"…<br>
+                        <span class="text-red-700">mais peu savent le scaler.</span>
+                    </h2>
+                    <div class="space-y-6 text-lg text-gray-600 leading-relaxed">
+                        <p>
+                            La majorité des gens s'arrêtent à "mettre un produit en ligne".<br>
+                            <strong>Résultat :</strong> pas d'offre claire, pas de système de vente, pas de lancement, pas de scaling.
+                        </p>
+                        <p class="bg-white p-6 rounded-lg border-l-4 border-red-700 shadow-sm">
+                            <strong class="text-gray-900 block mb-2">Ici on travaille comme un pro :</strong>
+                            marché → besoin → offre → produit → acquisition → conversion → rétention
+                        </p>
+                        <p>
+                            Un produit digital, ce n'est pas un fichier. <span class="font-bold text-gray-900">C'est un actif.</span>
+                            Un vrai produit digital, c'est un projet construit sur une cible précise, un besoin réel, une promesse claire et une exécution complète (paiement, funnel, pub, email).
+                        </p>
+                        <p>
+                            Je ne parle pas de pratiques douteuses. Je parle de construction d'un business digital propre, durable et scalable.
+                            <strong>À la fin, tu ne sors pas avec des idées. Tu sors avec un système.</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WHAT YOU GET (Immersion) -->
+            <div class="py-16 px-4 bg-white">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold section-title">3 mois d'immersion + 1 mois de suivi</h2>
+                        <p class="text-gray-600">Ce programme est conçu pour te faire avancer vite, mais surtout dans le bon ordre.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8 mb-12">
+                        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+                            <div class="text-red-700 font-bold text-xl mb-2">IMMERSION (3 mois)</div>
+                            <p class="font-bold text-gray-900 mb-2">Construction complète du projet, étape par étape</p>
+                            <p class="text-gray-600 text-sm">Pratique, livrables, exécution, mise en production.</p>
+                        </div>
+                        <div class="bg-gray-50 p-8 rounded-xl border border-gray-100">
+                            <div class="text-green-600 font-bold text-xl mb-2">SUIVI (1 mois)</div>
+                            <p class="font-bold text-gray-900 mb-2">Optimisation & Scaling</p>
+                            <p class="text-gray-600 text-sm">Corrections, ajustements, analyses des résultats.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- THE 9 STEPS -->
+            <div class="py-16 px-4 bg-gray-900 text-white">
+                <div class="max-w-5xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl font-bold mb-4">La méthode en <span class="text-red-500">9 étapes</span> (de 0 à ventes)</h2>
+                        <p class="text-gray-400">Un process logique : marché → offre → produit → funnel → pub → email.</p>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Step 1 -->
+                        <div class="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
+                            <div class="text-3xl mb-3">🔎</div>
+                            <h3 class="font-bold text-lg mb-2 text-red-400">Étape 1 — Opportunité</h3>
+                            <p class="text-gray-400 text-sm">Marché, niches, besoins urgents, cible solvable.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
+                            <div class="text-3xl mb-3">🎯</div>
+                            <h3 class="font-bold text-lg mb-2 text-red-400">Étape 2 — Offre</h3>
+                            <p class="text-gray-400 text-sm">Promesse, mécanisme, positionnement, prix.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
+                            <div class="text-3xl mb-3">🤖</div>
+                            <h3 class="font-bold text-lg mb-2 text-red-400">Étape 3 — IA</h3>
+                            <p class="text-gray-400 text-sm">Structurer plus vite, produire mieux, itérer rapidement.</p>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
+                            <div class="text-3xl mb-3">🧩</div>
+                            <h3 class="font-bold text-lg mb-2 text-red-400">Étape 4 — Produit</h3>
+                            <p class="text-gray-400 text-sm">Format optimal, plan clair, production efficace.</p>
+                        </div>
+                        <!-- Step 5 -->
+                        <div class="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
+                            <div class="text-3xl mb-3">🏦</div>
+                            <h3 class="font-bold text-lg mb-2 text-red-400">Étape 5 — Paiement</h3>
+                            <p class="text-gray-400 text-sm">Gateway solide, conformité, encaissement fluide.</p>
+                        </div>
+                        <!-- Step 6 -->
+                        <div class="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
+                            <div class="text-3xl mb-3">💳</div>
+                            <h3 class="font-bold text-lg mb-2 text-red-400">Étape 6 — Checkout</h3>
+                            <p class="text-gray-400 text-sm">Parcours sans friction, confiance, réduction abandons.</p>
+                        </div>
+                        <!-- Step 7 -->
+                        <div class="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
+                            <div class="text-3xl mb-3">🧠</div>
+                            <h3 class="font-bold text-lg mb-2 text-red-400">Étape 7 — Funnels</h3>
+                            <p class="text-gray-400 text-sm">Pages efficaces, parcours, tracking, optimisation.</p>
+                        </div>
+                        <!-- Step 8 -->
+                        <div class="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
+                            <div class="text-3xl mb-3">🚀</div>
+                            <h3 class="font-bold text-lg mb-2 text-red-400">Étape 8 — Publicité</h3>
+                            <p class="text-gray-400 text-sm">Angles, hooks, creatives, structure de tests.</p>
+                        </div>
+                        <!-- Step 9 -->
+                        <div class="bg-gray-800 p-6 rounded-lg hover:bg-gray-700 transition">
+                            <div class="text-3xl mb-3">✉️</div>
+                            <h3 class="font-bold text-lg mb-2 text-red-400">Étape 9 — Email</h3>
+                            <p class="text-gray-400 text-sm">Nurturing, relance, cross-sell, réactivation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEMO LIVE SECTION -->
+            <div class="py-16 px-4 bg-white border-b border-gray-100">
+                <div class="max-w-4xl mx-auto text-center">
+                    <span class="bg-green-100 text-green-700 font-bold px-4 py-1 rounded-full text-sm mb-4 inline-block">EXÉCUTION RÉELLE</span>
+                    <h2 class="text-3xl font-bold mb-6">Démo en direct : on vise <span class="bg-yellow-200 px-2">$3,000 de gains</span></h2>
+                    <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+                        Un process simple. Des actions chaque semaine. Et une exécution guidée avec la méthode de l'expert.<br>
+                        Tu consacres 2 heures par semaine, et tu avances sans te disperser.
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4 text-left max-w-2xl mx-auto">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-red-600 mt-1 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span class="text-gray-700 text-sm"><strong>Roadmap claire :</strong> Tu sais quoi faire, quand et pourquoi.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-red-600 mt-1 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span class="text-gray-700 text-sm"><strong>Assets prêts :</strong> Templates de pages, structures, créas.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-red-600 mt-1 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span class="text-gray-700 text-sm"><strong>Outils & IA :</strong> Prompts et outils pour accélérer.</span>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-red-600 mt-1 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                            <span class="text-gray-700 text-sm"><strong>Stratégies d'expert :</strong> Pas d'astuces, du vrai marketing.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COACH SECTION -->
+            <div class="py-16 px-4 bg-gray-50">
+                <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10">
+                    <div class="w-full md:w-1/3">
+                        <div class="bg-gray-200 w-full aspect-square rounded-lg flex items-center justify-center text-gray-400 shadow-inner">
+                            <!-- Placeholder for Abderrahim KHALID photo -->
+                            <div class="text-center p-4">
+                                <span class="text-4xl block mb-2">👨‍💻</span>
+                                <span class="font-bold">Abderrahim KHALID</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-2/3">
+                        <h2 class="text-2xl font-bold mb-4">Qui va te guider ?</h2>
+                        <h3 class="text-red-700 font-bold text-xl mb-4">Abderrahim KHALID</h3>
+                        <p class="text-gray-600 mb-4">
+                            Je suis dans le digital depuis 20 ans. J'ai accompagné et formé des milliers de personnes.
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            Aujourd'hui, je dirige <strong>Media Buying Academy</strong> (n°1 dans son domaine) avec plus de <span class="font-bold text-black">13 400 membres</span>. Une communauté active, orientée résultats.
+                        </p>
+                        <p class="text-gray-900 font-medium italic border-l-4 border-red-700 pl-4">
+                            "Je construis des business digitaux propres, durables et scalables. Ce programme n'est pas une théorie, c'est une méthode terrain."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WHO IS IT FOR -->
+            <div class="py-16 px-4 bg-white">
+                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                    <!-- Pour toi -->
+                    <div class="border border-green-200 bg-green-50 rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-green-800 mb-4">✅ C'est pour toi si...</h3>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li class="flex items-start"><span class="mr-2">✔️</span> Tu veux une méthode claire pour un produit rentable.</li>
+                            <li class="flex items-start"><span class="mr-2">✔️</span> Tu veux arrêter la théorie et passer à l'exécution.</li>
+                            <li class="flex items-start"><span class="mr-2">✔️</span> Tu veux vendre avec une vraie logique (funnel+pub).</li>
+                            <li class="flex items-start"><span class="mr-2">✔️</span> Tu veux construire un actif scalable.</li>
+                        </ul>
+                    </div>
+                    <!-- Pas pour toi -->
+                    <div class="border border-red-200 bg-red-50 rounded-xl p-6">
+                        <h3 class="text-xl font-bold text-red-800 mb-4">❌ Ce n'est pas pour toi si...</h3>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li class="flex items-start"><span class="mr-2">🚫</span> Tu cherches une "astuce rapide" sans travail.</li>
+                            <li class="flex items-start"><span class="mr-2">🚫</span> Tu veux copier des modèles douteux ou illégaux.</li>
+                            <li class="flex items-start"><span class="mr-2">🚫</span> Tu refuses de tester, mesurer et optimiser.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRICING -->
+            <div class="py-16 px-4 bg-gray-50">
+                <div class="max-w-md mx-auto bg-white rounded-2xl card-shadow overflow-hidden border-2 border-red-600 relative">
+                    <div class="absolute top-0 right-0 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                        -53% OFFRE LANCEMENT
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="text-gray-500 font-bold uppercase tracking-wider mb-2">Offre de lancement</h3>
+                        <div class="flex justify-center items-end gap-2 mb-6">
+                            <span class="text-gray-400 line-through text-xl">15 000 DH</span>
+                            <span class="text-5xl font-extrabold text-red-700">7 000 DH</span>
+                        </div>
+                        <p class="text-sm text-red-600 font-medium mb-6 bg-red-50 py-2 rounded">
+                            Économise 8 000 DH pour les premiers inscrits
+                        </p>
+
+                        <ul class="text-left space-y-4 mb-8 text-gray-700">
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Accès au programme (3 mois)
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                1 mois de suivi inclus
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                Méthode + Livrables + Exécution
+                            </li>
+                        </ul>
+
+                        <button onclick="router.navigateTo('page-step1')" class="btn-primary w-full text-white font-bold text-xl py-4 rounded-lg shadow-lg">
+                            REJOINDRE LE PROGRAMME
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FINAL CTA -->
+            <div class="py-16 px-4 text-center">
+                <h2 class="text-2xl font-bold mb-4">Prêt à construire un vrai produit digital… et à le vendre ?</h2>
+                <p class="mb-8 text-gray-600">Si tu veux arrêter de tourner autour du sujet et adopter une méthode d'expert.</p>
+                <button onclick="router.navigateTo('page-step1')" class="btn-primary text-white font-bold text-lg px-8 py-3 rounded-lg">
+                    Je postule maintenant
+                </button>
+            </div>
+
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PAGE 2: STEP 1 (Contact Info)              -->
+        <!-- ========================================== -->
+        <section id="page-step1" class="funnel-page w-full max-w-xl mx-auto py-10 px-4">
+            <div class="mb-6">
+                <div class="flex justify-between text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">
+                    <span class="text-red-700">Étape 1 : Coordonnées</span>
+                    <span>Étape 2 : Profil</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-red-700 w-1/2 step-transition"></div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl card-shadow p-6 md:p-8 border-t-4 border-red-700">
+                <h2 class="text-2xl font-bold text-center mb-2">Candidature</h2>
+                <p class="text-center text-gray-500 mb-6 text-sm">Remplis ce formulaire pour vérifier ton éligibilité.</p>
+
+                <form id="form-step1" onsubmit="handleStep1(event)">
+                    <!-- BOT TRAP: Honeypot Field -->
+                    <div style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;">
+                        <input type="text" name="website_url" autocomplete="off" tabindex="-1" placeholder="Enter URL">
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Nom & Prénom <span class="text-red-600">*</span></label>
+                            <input type="text" name="fullname" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 outline-none transition bg-gray-50 focus:bg-white" placeholder="Ton nom complet">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Email professionnel <span class="text-red-600">*</span></label>
+                            <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 outline-none transition bg-gray-50 focus:bg-white" placeholder="ton@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">WhatsApp <span class="text-red-600">*</span></label>
+                            <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 outline-none transition bg-gray-50 focus:bg-white" placeholder="+212 6...">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Pays <span class="text-red-600">*</span></label>
+                            <select name="country" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 outline-none transition bg-white">
+                                <option value="Maroc">Maroc</option>
+                                <option value="France">France</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="bg-red-50 p-3 mt-6 rounded border border-red-100 flex items-start">
+                        <svg class="h-5 w-5 text-red-600 mt-0.5 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" /></svg>
+                        <p class="text-xs text-red-800 font-medium leading-relaxed">
+                            Programme sélectif. Prends 2 minutes pour répondre sérieusement.
+                        </p>
+                    </div>
+                    <button type="submit" class="btn-primary w-full text-white font-bold text-lg py-3 rounded-lg mt-6 shadow-lg">
+                        Continuer vers l'étape 2 &rarr;
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PAGE 3: STEP 2 (Qualification)             -->
+        <!-- ========================================== -->
+        <section id="page-step2" class="funnel-page w-full max-w-xl mx-auto py-10 px-4">
+            <div class="mb-6">
+                <div class="flex justify-between text-xs font-bold text-gray-500 mb-2 uppercase tracking-wide">
+                    <span class="text-green-600 flex items-center"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg> Step 1</span>
+                    <span class="text-red-700">Étape 2 : Profil</span>
+                </div>
+                <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-green-500 w-full step-transition"></div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl card-shadow p-6 md:p-8 border-t-4 border-red-700">
+                <h2 class="text-2xl font-bold text-center mb-6">Mieux te connaître</h2>
+
+                <form id="form-step2" onsubmit="handleStep2(event)">
+                     <!-- BOT TRAP: Honeypot Field -->
+                     <div style="opacity: 0; position: absolute; top: 0; left: 0; height: 0; width: 0; z-index: -1;">
+                        <input type="text" name="website_url" autocomplete="off" tabindex="-1" placeholder="Enter URL">
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Objective -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-2">Ton objectif principal ?</label>
+                            <div class="space-y-2">
+                                <label class="block cursor-pointer relative">
+                                    <input type="radio" name="goal" value="niche" class="custom-radio sr-only" required>
+                                    <div class="p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition flex items-center">
+                                        <div class="radio-circle w-4 h-4 rounded-full border border-gray-300 mr-3 flex-shrink-0"></div>
+                                        <span class="text-sm">Trouver une niche rentable</span>
+                                    </div>
+                                </label>
+                                <label class="block cursor-pointer relative">
+                                    <input type="radio" name="goal" value="create" class="custom-radio sr-only">
+                                    <div class="p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition flex items-center">
+                                        <div class="radio-circle w-4 h-4 rounded-full border border-gray-300 mr-3 flex-shrink-0"></div>
+                                        <span class="text-sm">Créer mon premier produit digital</span>
+                                    </div>
+                                </label>
+                                <label class="block cursor-pointer relative">
+                                    <input type="radio" name="goal" value="scale" class="custom-radio sr-only">
+                                    <div class="p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition flex items-center">
+                                        <div class="radio-circle w-4 h-4 rounded-full border border-gray-300 mr-3 flex-shrink-0"></div>
+                                        <span class="text-sm">Scaler mon business existant</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Status -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-2">Situation actuelle ?</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <label class="block cursor-pointer relative">
+                                    <input type="radio" name="status" value="zero" class="custom-radio sr-only" required>
+                                    <div class="p-3 border border-gray-200 rounded-lg hover:bg-gray-50 text-center text-sm font-medium">Je débute</div>
+                                </label>
+                                <label class="block cursor-pointer relative">
+                                    <input type="radio" name="status" value="sales" class="custom-radio sr-only">
+                                    <div class="p-3 border border-gray-200 rounded-lg hover:bg-gray-50 text-center text-sm font-medium">Déjà des ventes</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Text Inputs -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-1">Marché cible ?</label>
+                            <input type="text" name="market" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 outline-none" placeholder="Ex: E-commerce, Fitness...">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-1">Client idéal (Avatar) ?</label>
+                            <textarea name="avatar" rows="2" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 outline-none" placeholder="Qui veux-tu aider ?"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-2">Temps dispo / semaine ?</label>
+                            <div class="flex gap-2 text-sm">
+                                <label class="flex-1">
+                                    <input type="radio" name="time" value="2-4h" class="custom-radio sr-only" required>
+                                    <div class="p-2 border border-gray-200 rounded text-center hover:bg-gray-50 cursor-pointer">2-4h</div>
+                                </label>
+                                <label class="flex-1">
+                                    <input type="radio" name="time" value="5h+" class="custom-radio sr-only">
+                                    <div class="p-2 border border-gray-200 rounded text-center hover:bg-gray-50 cursor-pointer">5h+</div>
+                                </label>
+                                <label class="flex-1">
+                                    <input type="radio" name="time" value="Fulltime" class="custom-radio sr-only">
+                                    <div class="p-2 border border-gray-200 rounded text-center hover:bg-gray-50 cursor-pointer">Temps plein</div>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-1">Pourquoi ce programme ?</label>
+                            <textarea name="why" rows="3" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 outline-none" placeholder="Tes motivations..."></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary w-full text-white font-bold text-lg py-3 rounded-lg shadow-md mt-8">
+                        Envoyer ma candidature
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PAGE 4: THANK YOU                          -->
+        <!-- ========================================== -->
+        <section id="page-thankyou" class="funnel-page w-full max-w-lg mx-auto py-10 px-4">
+            <div class="bg-white rounded-xl card-shadow p-8 text-center border-t-4 border-green-500">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Félicitations ! 🎉</h1>
+                <p class="text-gray-600 mb-8 text-lg">Candidature reçue avec succès.</p>
+                <div class="bg-gray-50 border border-gray-200 rounded-xl p-6 mb-8 text-left">
+                    <p class="font-bold text-gray-900 mb-2">⚠️ Étape finale (Importante)</p>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Pour valider ton dossier et ne pas rater le début du programme, rejoins impérativement le groupe WhatsApp des participants :
+                    </p>
+                    <a href="https://chat.whatsapp.com/LYkS7jK1bGJL3SI9jq94Cf" target="_blank" onclick="trackWhatsapp()" class="btn-whatsapp flex items-center justify-center w-full px-6 py-3 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
+                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        REJOINDRE LE GROUPE VIP
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-800 py-8 text-center text-white text-xs">
+        <p class="mb-2">&copy; 2025 KHALID.DIGITAL. Tous droits réservés.</p>
+        <p class="mb-2">Contact | Politique de confidentialité</p>
+        <p class="text-gray-500">Ce site ne fait pas partie du site web Facebook ou de Facebook Inc.</p>
+    </footer>
+
+    <!-- LOGIC SCRIPT - ADVANCED TRACKING & VIRTUAL PAGE VIEWS -->
+    <script>
+        // --- CONFIGURATION ---
+        const WEBHOOK_URL = 'PLACEHOLDER'; // Replace with Make.com/Zapier URL
+        
+        // --- 1. VIRTUAL ROUTER & HISTORY MANAGEMENT ---
+        const router = {
+            pages: {
+                'page-index': { path: 'index.html', title: 'Home' },
+                'page-step1': { path: '?page=contact-info', title: 'Contact Info' },
+                'page-step2': { path: '?page=qualification', title: 'Qualification' },
+                'page-thankyou': { path: '?page=thank-you', title: 'Thank You' }
+            },
+            
+            navigateTo: function(pageId) {
+                // Hide all pages
+                document.querySelectorAll('.funnel-page').forEach(page => page.classList.remove('active'));
+                
+                // Show target
+                const target = document.getElementById(pageId);
+                if(target) {
+                    target.classList.add('active');
+                    window.scrollTo(0, 0);
+                    
+                    // History API
+                    const pageConfig = this.pages[pageId];
+                    if(pageConfig) {
+                        try {
+                            history.pushState({ pageId: pageId }, pageConfig.title, pageConfig.path);
+                        } catch (e) {
+                            console.warn('[Router] History API not supported in this preview mode:', e);
+                        }
+                        
+                        // Fire Virtual PageView (Standard Pixel)
+                        if(typeof fbq !== 'undefined') fbq('track', 'PageView');
+                        if(typeof gtag !== 'undefined') gtag('event', 'page_view', { page_path: pageConfig.path });
+                        
+                        console.log(`[Router] Navigated to ${pageId} (${pageConfig.path})`);
+                    }
+                }
+            }
+        };
+
+        // Handle Browser Back Button
+        window.onpopstate = function(event) {
+            if(event.state && event.state.pageId) {
+                // Manually switch visibility without pushing state again
+                document.querySelectorAll('.funnel-page').forEach(page => page.classList.remove('active'));
+                document.getElementById(event.state.pageId).classList.add('active');
+            }
+        };
+
+        // --- 2. CENTRALIZED BACKEND SENDER ---
+        function sendToBackend(payload) {
+            if (WEBHOOK_URL === 'PLACEHOLDER') {
+                console.warn('[Backend] Webhook URL not set. Data:', payload);
+                return;
+            }
+
+            // Async "Fire and Forget" style
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    timestamp: new Date().toISOString(),
+                    ...payload
+                }),
+                keepalive: true // Ensures request completes even if page closes
+            }).catch(err => console.error('[Backend] Error:', err));
+        }
+
+        // --- 3. STEP 1 LOGIC (PARTIAL CAPTURE) ---
+        function handleStep1(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+
+            // Anti-Bot Trap Check
+            if (formData.get('website_url')) {
+                console.warn('[Security] Bot detected. Submission blocked.');
+                return; // Silent fail
+            }
+
+            const data = {
+                fullname: formData.get('fullname'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                country: formData.get('country')
+            };
+
+            // Save locally
+            localStorage.setItem('lead_step1', JSON.stringify(data));
+
+            // 1. Fire Custom Pixel (Known Contact)
+            if(typeof fbq !== 'undefined') fbq('trackCustom', 'ContactStep1');
+            if(typeof gtag !== 'undefined') gtag('event', 'ContactStep1');
+
+            // 2. Send Partial Data Immediately
+            sendToBackend({
+                type: 'partial_lead',
+                stage: 'step1_complete',
+                data: data
+            });
+
+            // 3. Move Next
+            router.navigateTo('page-step2');
+        }
+
+        // --- 4. STEP 2 LOGIC (QUALIFICATION & FILTERING) ---
+        function handleStep2(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+
+            // Anti-Bot Trap Check
+            if (formData.get('website_url')) { return; }
+
+            // Merge with previous data
+            const step1Data = JSON.parse(localStorage.getItem('lead_step1') || '{}');
+            
+            const step2Data = {
+                goal: formData.get('goal'),
+                status: formData.get('status'),
+                market: formData.get('market'),
+                avatar: formData.get('avatar'),
+                time: formData.get('time'),
+                why: formData.get('why')
+            };
+
+            const fullProfile = { ...step1Data, ...step2Data };
+            localStorage.setItem('lead_complete', JSON.stringify(fullProfile));
+
+            // --- FILTER LOGIC (Quality Check) ---
+            const isTimeLow = step2Data.time === '2-4h';
+            const isWhyShort = (step2Data.why || '').length < 10;
+            const isLowQuality = isTimeLow || isWhyShort;
+
+            if (isLowQuality) {
+                // Low Quality Logic
+                console.log('[Lead] Classified as Low Quality');
+                if(typeof fbq !== 'undefined') fbq('track', 'Contact'); // Just Contact, not Lead
+                
+                sendToBackend({
+                    type: 'lead_submission',
+                    quality: 'low',
+                    stage: 'step2_complete',
+                    data: fullProfile
+                });
+            } else {
+                // High Quality Logic
+                console.log('[Lead] Classified as High Quality');
+                if(typeof fbq !== 'undefined') fbq('track', 'Lead'); // Actual Lead Event
+                if(typeof gtag !== 'undefined') gtag('event', 'conversion', {'send_to': 'AW-CONVERSION_ID/LABEL'}); // Google Conversion
+                
+                sendToBackend({
+                    type: 'lead_submission',
+                    quality: 'high',
+                    stage: 'step2_complete',
+                    data: fullProfile
+                });
+            }
+
+            // Move to Thank You
+            router.navigateTo('page-thankyou');
+        }
+
+        function trackWhatsapp() {
+            if(window.fbq) window.fbq('trackCustom', 'JoinGroupWhatsapp');
+        }
+    </script>
+</body>
+</html>
