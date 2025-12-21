@@ -661,8 +661,7 @@
         // 1. CONFIGURATION & SETUP
         // ============================================================
         // Changed to internal route for Anti-AdBlock Strategy
-        const WEBHOOK_URL = 'https://hook.eu1.make.com/hjn889skrlyqh7qaw76pp6g1j8u4hswk'; 
-        // Note: Use '/api/submit' only when deployed to Vercel/Netlify. For local/preview, use the full URL.
+        const WEBHOOK_URL = '/api/submit'; 
         const CONVERSION_EVENTS = ['Contact', 'Lead', 'SubmitApplication']; 
 
         // ============================================================
@@ -726,7 +725,8 @@
                 }
             }
 
-            // --- B. SERVER-SIDE TRACKING (CAPI Webhook) ---
+            // --- B. SERVER-SIDE TRACKING (Proxy Strategy) ---
+            
             // Only send meaningful conversion events to the backend
             if (CONVERSION_EVENTS.includes(eventName)) {
                 
@@ -826,6 +826,7 @@
                 goal: step2Data.goal,
                 status: step2Data.status,
                 market: step2Data.market,
+                avatar: step2Data.avatar, // ✅ FIXED: Included avatar field
                 time: step2Data.time,
                 why: step2Data.why
             }, 'AW-CONVERSION_ID/LABEL'); // Add your Google Label here
