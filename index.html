@@ -661,7 +661,8 @@
         // 1. CONFIGURATION & SETUP
         // ============================================================
         // Changed to internal route for Anti-AdBlock Strategy
-        const WEBHOOK_URL = '/api/submit'; 
+        const WEBHOOK_URL = 'https://hook.eu1.make.com/hjn889skrlyqh7qaw76pp6g1j8u4hswk'; 
+        // Note: Use '/api/submit' only when deployed to Vercel/Netlify. For local/preview, use the full URL.
         const CONVERSION_EVENTS = ['Contact', 'Lead', 'SubmitApplication']; 
 
         // ============================================================
@@ -726,7 +727,6 @@
             }
 
             // --- B. SERVER-SIDE TRACKING (CAPI Webhook) ---
-            
             // Only send meaningful conversion events to the backend
             if (CONVERSION_EVENTS.includes(eventName)) {
                 
@@ -736,14 +736,14 @@
                     event_id: eventID,
                     event_time: Math.floor(Date.now() / 1000),
                     user_data: JSON.parse(localStorage.getItem('user_data') || '{}'),
-                    custom_data: eventData, // Ensure 'data' variable is passed correctly from function arguments
+                    custom_data: eventData, // ✅ FIXED: correctly passing eventData
                     page_url: window.location.href,
                     // Note: IP and User Agent will be added automatically by the Vercel Server
                     fbp: getCookie('_fbp'),
                     fbc: getCookie('_fbc')
                 };
 
-                console.log(`🚀 Sending '${eventName}' to Server Proxy...`);
+                console.log(`🚀 Sending '${eventName}' to Server Proxy...`, payload);
 
                 // Send to internal API (Vercel)
                 fetch(WEBHOOK_URL, {
