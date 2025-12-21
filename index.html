@@ -660,7 +660,8 @@
         // ============================================================
         // 1. CONFIGURATION & SETUP
         // ============================================================
-        const WEBHOOK_URL = 'https://hook.eu1.make.com/lkbiaudxzojq3bfv4h7lsonj4v65lrgp';
+        // Changed to internal route for Anti-AdBlock Strategy
+        const WEBHOOK_URL = '/api/submit'; 
         const CONVERSION_EVENTS = ['Contact', 'Lead', 'SubmitApplication']; 
 
         // ============================================================
@@ -729,41 +730,32 @@
             // Only send meaningful conversion events to the backend
             if (CONVERSION_EVENTS.includes(eventName)) {
                 
-                // 1. Gather Technical Data (Fingerprinting)
-                const techData = {
+                // C. CAPI via Server Proxy (Anti-AdBlock)
+                const payload = {
                     event_name: eventName,
                     event_id: eventID,
                     event_time: Math.floor(Date.now() / 1000),
+                    user_data: JSON.parse(localStorage.getItem('user_data') || '{}'),
+                    custom_data: eventData, // Ensure 'data' variable is passed correctly from function arguments
                     page_url: window.location.href,
-                    user_agent: navigator.userAgent,
+                    // Note: IP and User Agent will be added automatically by the Vercel Server
                     fbp: getCookie('_fbp'),
-                    fbc: getCookie('_fbc'),
+                    fbc: getCookie('_fbc')
                 };
 
-                // 2. Gather User Data (from Storage)
-                const storedUserData = JSON.parse(localStorage.getItem('user_data') || '{}');
+                console.log(`🚀 Sending '${eventName}' to Server Proxy...`);
 
-                // 3. FLATTEN EVERYTHING: Merge all objects into one root JSON
-                const payload = {
-                    ...techData,        // Technical fields (fbp, fbc, ua...)
-                    ...storedUserData,  // Contact fields (email, phone, external_id...)
-                    ...eventData        // Specific event fields (answers, custom props...)
-                };
-
-                console.log(`🚀 Sending '${eventName}' to Webhook:`, payload);
-
-                // Use Beacon API for reliability
-                const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
-                const sent = navigator.sendBeacon(WEBHOOK_URL, blob);
-
-                if (!sent) {
-                    // Fallback to fetch if beacon fails (e.g. payload too large)
-                    fetch(WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    }).catch(err => console.warn('[CAPI] Fetch Fallback Failed:', err));
-                }
+                // Send to internal API (Vercel)
+                fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                })
+                .then(res => {
+                    if(res.ok) console.log("✅ Server Proxy Success");
+                    else console.warn("⚠️ Server Proxy Error");
+                })
+                .catch(err => console.error('❌ Tracking Error:', err));
 
             } else {
                 console.log(`[Tracking] Browser Only: ${eventName}`);
@@ -910,4 +902,3 @@
     </script>
 </body>
 </html>
-
