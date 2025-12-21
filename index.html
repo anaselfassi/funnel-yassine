@@ -19,7 +19,7 @@
         'https://connect.facebook.net/en_US/fbevents.js');
         
         fbq('init', '7590598354379639');
-        // PageView is fired manually in the script below to support virtual pages
+        // PageView fires manually in the script below
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=7590598354379639&ev=PageView&noscript=1"
@@ -145,7 +145,7 @@
     <main class="flex-grow">
         
         <!-- ========================================== -->
-        <!-- PAGE 1: SALES PAGE (Original Content)      -->
+        <!-- PAGE 1: SALES PAGE                         -->
         <!-- ========================================== -->
         <section id="page-index" class="funnel-page active">
             
@@ -417,7 +417,8 @@
                         <h3 class="text-gray-500 font-bold uppercase tracking-wider mb-2">Offre de lancement</h3>
                         <div class="flex justify-center items-end gap-2 mb-6">
                             <span class="text-gray-400 line-through text-xl">15 000 DH</span>
-                            <span class="text-5xl font-extrabold text-red-700">7 000 DH</span>
+                            <!-- Bot-Proof Price Image -->
+                            <img src="https://placehold.co/200x50/D32F2F/FFFFFF?text=7+000+DH" alt="Prix de lancement" class="h-12 w-auto">
                         </div>
                         <p class="text-sm text-red-600 font-medium mb-6 bg-red-50 py-2 rounded">
                             Économise 8 000 DH pour les premiers inscrits
@@ -490,6 +491,11 @@
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-1">WhatsApp <span class="text-red-600">*</span></label>
                             <input type="tel" name="phone" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 outline-none transition bg-gray-50 focus:bg-white" placeholder="+212 6...">
+                        </div>
+                        <!-- Added City Field as requested -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Ville <span class="text-red-600">*</span></label>
+                            <input type="text" name="city" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-500 outline-none transition bg-gray-50 focus:bg-white" placeholder="Ex: Casablanca">
                         </div>
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-1">Pays <span class="text-red-600">*</span></label>
@@ -649,82 +655,223 @@
         <p class="text-gray-500">Ce site ne fait pas partie du site web Facebook ou de Facebook Inc.</p>
     </footer>
 
-    <!-- ADVANCED TRACKING SCRIPT -->
+    <!-- FINAL ADVANCED TRACKING SCRIPT -->
     <script>
-        // --- 1. CONFIGURATION ---
-        const WEBHOOK_URL = 'https://hook.eu1.make.com/yy74u5lgppguivu5pz3syk5s5agtypa9';
-        
-        // --- 2. UTILITY FUNCTIONS ---
-        
-        // Generate Unique Event ID for Deduplication
+        // ============================================================
+        // 1. CONFIGURATION & SETUP
+        // ============================================================
+        const WEBHOOK_URL = 'https://hook.eu1.make.com/lkbiaudxzojq3bfv4h7lsonj4v65lrgp';
+        const CONVERSION_EVENTS = ['Contact', 'Lead', 'SubmitApplication']; 
+
+        // ============================================================
+        // 2. DATA ENRICHMENT & UTILITIES
+        // ============================================================
+
+        // Helper: Extract Form Data safely
+        function getFormJSON(form) {
+            const formData = new FormData(form);
+            return Object.fromEntries(formData.entries());
+        }
+
+        // Helper: Get Cookies (_fbp, _fbc)
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return '';
+        }
+
+        // Helper: Generate Unique Event ID (Deduplication Key)
         function generateEventId() {
             return 'eid_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
         }
 
-        // Central Event Firing System (Hybrid Tracking)
-        function fireEvent(eventName, data = {}, googleLabel = null) {
+        // Helper: Simple Email Hash for External ID (Privacy-friendly)
+        // Generates a consistent ID based on the email string
+        function hashEmail(email) {
+            if (!email) return '';
+            let hash = 0, i, chr;
+            const string = email.trim().toLowerCase();
+            if (string.length === 0) return hash;
+            for (i = 0; i < string.length; i++) {
+                chr = string.charCodeAt(i);
+                hash = ((hash << 5) - hash) + chr;
+                hash |= 0; // Convert to 32bit integer
+            }
+            return 'user_' + Math.abs(hash);
+        }
+
+        // ============================================================
+        // 3. CENTRAL EVENT FIRING ENGINE
+        // ============================================================
+        
+        function fireEvent(eventName, eventData = {}, googleLabel = null) {
             const eventID = generateEventId();
             
-            // A. Facebook Pixel (Browser Side)
+            // --- A. BROWSER TRACKING (Pixel + Gtag) ---
+            
+            // Facebook Pixel
             if(typeof fbq !== 'undefined') {
-                fbq('track', eventName, data, { eventID: eventID });
+                // We pass the EventID for deduplication matching
+                fbq('track', eventName, eventData, { eventID: eventID });
             }
 
-            // B. Google Ads (Browser Side)
+            // Google Ads
             if(typeof gtag !== 'undefined') {
-                gtag('event', eventName, data);
+                gtag('event', eventName, eventData);
                 if(googleLabel) {
                     gtag('event', 'conversion', { 'send_to': googleLabel });
                 }
             }
 
-            // C. CAPI via Webhook (Server Side)
-            const payload = {
-                event_name: eventName,
-                event_id: eventID,
-                event_time: Math.floor(Date.now() / 1000),
-                user_data: JSON.parse(localStorage.getItem('user_data') || '{}'),
-                custom_data: data,
-                page_url: window.location.href
-            };
-
-            // Send asynchronously
-            fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-                keepalive: true
-            }).catch(err => console.error('[CAPI] Error:', err));
+            // --- B. SERVER-SIDE TRACKING (CAPI Webhook) ---
             
-            console.log(`[Tracking] Fired: ${eventName} (ID: ${eventID})`);
+            // Only send meaningful conversion events to the backend
+            if (CONVERSION_EVENTS.includes(eventName)) {
+                
+                // 1. Gather Technical Data (Fingerprinting)
+                const techData = {
+                    event_name: eventName,
+                    event_id: eventID,
+                    event_time: Math.floor(Date.now() / 1000),
+                    page_url: window.location.href,
+                    user_agent: navigator.userAgent,
+                    fbp: getCookie('_fbp'),
+                    fbc: getCookie('_fbc'),
+                };
+
+                // 2. Gather User Data (from Storage)
+                const storedUserData = JSON.parse(localStorage.getItem('user_data') || '{}');
+
+                // 3. FLATTEN EVERYTHING: Merge all objects into one root JSON
+                const payload = {
+                    ...techData,        // Technical fields (fbp, fbc, ua...)
+                    ...storedUserData,  // Contact fields (email, phone, external_id...)
+                    ...eventData        // Specific event fields (answers, custom props...)
+                };
+
+                console.log(`🚀 Sending '${eventName}' to Webhook:`, payload);
+
+                // Use Beacon API for reliability
+                const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+                const sent = navigator.sendBeacon(WEBHOOK_URL, blob);
+
+                if (!sent) {
+                    // Fallback to fetch if beacon fails (e.g. payload too large)
+                    fetch(WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    }).catch(err => console.warn('[CAPI] Fetch Fallback Failed:', err));
+                }
+
+            } else {
+                console.log(`[Tracking] Browser Only: ${eventName}`);
+            }
         }
 
-        // --- 3. VIRTUAL ROUTER & HISTORY ---
+        // ============================================================
+        // 4. FUNNEL LOGIC (HANDLERS)
+        // ============================================================
+
+        // --- STEP 1: CONTACT CAPTURE ---
+        function handleStep1(e) {
+            e.preventDefault();
+            const form = e.target;
+            const data = getFormJSON(form);
+
+            // Security: Bot Trap Check
+            if (data.website_url) { console.warn('Bot detected.'); return; }
+
+            // Generate External ID from Email
+            const externalId = hashEmail(data.email);
+
+            // Prepare User Data Profile
+            const userData = {
+                fullname: data.fullname,
+                email: data.email,
+                phone: data.phone,
+                city: data.city,
+                country: data.country,
+                external_id: externalId // Key for matching
+            };
+
+            // Save to LocalStorage (Persist across steps)
+            localStorage.setItem('user_data', JSON.stringify(userData));
+            
+            // FIRE EVENT: Contact
+            // This is the partial lead. We send it immediately.
+            fireEvent('Contact', { 
+                content_name: 'Step1_Partial', 
+                stage: 'step1_partial' 
+            });
+
+            // Navigate
+            router.navigateTo('page-step2');
+        }
+
+        // --- STEP 2: LEAD CAPTURE ---
+        function handleStep2(e) {
+            e.preventDefault();
+            const form = e.target;
+            const step2Data = getFormJSON(form);
+
+            // Security: Bot Trap Check
+            if (step2Data.website_url) { return; }
+
+            // Merge with previous data for completeness
+            const previousData = JSON.parse(localStorage.getItem('user_data') || '{}');
+            const fullProfile = { ...previousData, ...step2Data };
+            localStorage.setItem('user_data', JSON.stringify(fullProfile));
+
+            // SIMPLIFIED LOGIC: Completion of Step 2 is ALWAYS a Lead
+            console.log('[Lead] Captured');
+
+            // FIRE EVENT: Lead
+            fireEvent('Lead', { 
+                content_name: 'Application_Submitted',
+                // Merging specific answers for the flat payload
+                goal: step2Data.goal,
+                status: step2Data.status,
+                market: step2Data.market,
+                time: step2Data.time,
+                why: step2Data.why
+            }, 'AW-CONVERSION_ID/LABEL'); // Add your Google Label here
+
+            // Navigate
+            router.navigateTo('page-thankyou');
+        }
+
+        function trackWhatsapp() {
+            fireEvent('JoinGroup', { content_name: 'WhatsApp' });
+        }
+
+        // ============================================================
+        // 5. VIRTUAL ROUTER & HISTORY
+        // ============================================================
+        
         const router = {
             pages: {
-                'page-index': { path: window.location.pathname, title: 'Home' },
-                'page-step1': { path: '?step=qualification', title: 'Qualification' },
-                'page-step2': { path: '?step=thank-you', title: 'Thank You' }, // Step 2 leads to thank you logic visually, but URL updates on transition
-                'page-thankyou': { path: '?step=thank-you-complete', title: 'Confirmation' }
+                'page-index': { path: 'index.html', title: 'Home' },
+                'page-step1': { path: '?step=contact', title: 'Qualification' },
+                'page-step2': { path: '?step=qualification', title: 'Qualification' }, 
+                'page-thankyou': { path: '?step=success', title: 'Confirmation' }
             },
             
             navigateTo: function(pageId) {
-                // Hide all pages
                 document.querySelectorAll('.funnel-page').forEach(page => page.classList.remove('active'));
-                
-                // Show target
                 const target = document.getElementById(pageId);
                 if(target) {
                     target.classList.add('active');
                     window.scrollTo(0, 0);
                     
-                    // Update URL & Fire PageView
                     const pageConfig = this.pages[pageId];
                     if(pageConfig) {
                         try {
                             history.pushState({ pageId: pageId }, pageConfig.title, pageConfig.path);
                         } catch(e) { console.warn('History API restricted in preview'); }
                         
+                        // Fire Virtual PageView
                         fireEvent('PageView');
                     }
                 }
@@ -739,83 +886,26 @@
             }
         };
 
-        // --- 4. STEP 1 LOGIC (PARTIAL CAPTURE) ---
-        function handleStep1(e) {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-
-            // Anti-Bot Trap
-            if (formData.get('website_url')) {
-                console.warn('[Security] Bot detected.');
-                return;
-            }
-
-            const userData = {
-                fullname: formData.get('fullname'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                country: formData.get('country')
+        // ============================================================
+        // 6. BEHAVIORAL TRACKING (OPTIONAL BUT RECOMMENDED)
+        // ============================================================
+        function initBehavioralTracking() {
+            // ViewContent (Delayed for interaction)
+            let hasFiredViewContent = false;
+            const fireViewContent = () => {
+                if (!hasFiredViewContent) {
+                    fireEvent('ViewContent');
+                    hasFiredViewContent = true;
+                    window.removeEventListener('scroll', fireViewContent);
+                    window.removeEventListener('mousemove', fireViewContent);
+                }
             };
-
-            // Save to LocalStorage for CAPI matching
-            localStorage.setItem('user_data', JSON.stringify(userData));
-
-            // Fire 'Contact' Event (Partial Lead)
-            fireEvent('Contact', { content_name: 'Step1_Completed' });
-
-            // Transition
-            router.navigateTo('page-step2');
+            window.addEventListener('scroll', fireViewContent);
+            window.addEventListener('mousemove', fireViewContent);
         }
 
-        // --- 5. STEP 2 LOGIC (QUALITY FILTER) ---
-        function handleStep2(e) {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-
-            // Anti-Bot Trap
-            if (formData.get('website_url')) { return; }
-
-            const step2Data = {
-                goal: formData.get('goal'),
-                status: formData.get('status'),
-                market: formData.get('market'),
-                avatar: formData.get('avatar'),
-                time: formData.get('time'),
-                why: formData.get('why')
-            };
-
-            // Logic: Filter Quality
-            // Condition: Time is '2-4h' OR motivation is too short (< 5 chars)
-            const isTimeLow = step2Data.time === '2-4h';
-            const isWhyShort = (step2Data.why || '').length < 5;
-            
-            if (isTimeLow || isWhyShort) {
-                // LOW QUALITY -> Fire 'Schedule' (Not Lead)
-                console.log('[Lead] Classified: Low Quality');
-                fireEvent('Schedule', { quality: 'low', ...step2Data });
-            } else {
-                // HIGH QUALITY -> Fire 'Lead'
-                console.log('[Lead] Classified: High Quality');
-                // Replace 'AW-CONVERSION_LABEL' below with your actual Google Ads Label
-                fireEvent('Lead', { 
-                    value: 10.00, 
-                    currency: 'USD', 
-                    quality: 'high',
-                    ...step2Data 
-                }, 'AW-CONVERSION_LABEL_PLACEHOLDER');
-            }
-
-            // Transition
-            router.navigateTo('page-thankyou');
-        }
-
-        function trackWhatsapp() {
-            fireEvent('JoinGroup', { content_name: 'WhatsApp' });
-        }
-
-        // --- INITIALIZATION ---
-        // Fire ViewContent on initial load
-        fireEvent('ViewContent');
+        // --- INITIALIZE ---
+        initBehavioralTracking();
 
     </script>
 </body>
